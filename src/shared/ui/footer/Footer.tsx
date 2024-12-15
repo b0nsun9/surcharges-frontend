@@ -4,8 +4,8 @@ import styles from './Footer.module.css'
 /* frameworks */
 
 /* components */
-import Bonsung from '@components/footer/bonsung/Bonsung'
-import Petr from '@components/footer/petr/Petr'
+import Bonsung from '@shared/ui/footer/bonsung/Bonsung'
+import Petr from '@shared/ui/footer/petr/Petr'
 
 /* usecases */
 

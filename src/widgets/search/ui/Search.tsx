@@ -5,9 +5,10 @@ import styles from './Search.module.css'
 import { useNavigate } from 'react-router-dom'
 
 /* components */
-import SearchBox from '@components/searchBox/SearchBox'
-import Footer from '@components/footer/Footer'
-import { useSearchStore } from './SearchStore'
+import SearchBox from '@shared/ui/searchbox/SearchBox'
+import Footer from '@shared/ui/footer/Footer'
+
+import { useSearchStore } from '@shared/model/SearchStore'
 
 /* usecases */
 

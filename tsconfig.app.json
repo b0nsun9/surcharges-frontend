@@ -25,13 +25,12 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      "@features/*": ["src/presentation/features/*"],
-      "@components/*": ["src/presentation/components/*"],
-      "@entities/*": ["src/domain/entities/*"],
-      "@usecases/*": ["src/domain/usecases/*"],
-      "@repositories/*": ["src/data/repositories/*"],
-      "@networks/*": ["src/data/networks/*"],
-      "@utils/*": ["src/utils/*"],
+      "@app/*": ["src/app/*"],
+      "@pages/*": ["src/pages/*"],
+      "@widgets/*": ["src/widgets/*"],
+      "@features/*": ["src/features/*"],
+      "@entities/*": ["src/entities/*"],
+      "@shared/*": ["src/shared/*"],
     }
   },
   "include": ["src"]

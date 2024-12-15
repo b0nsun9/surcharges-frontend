@@ -7,8 +7,8 @@ import { APIProvider } from '@vis.gl/react-google-maps'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 /* features */
-import Search from '@features/search/Search'
-import Results from '@features/results/Results'
+import Search from '@widgets/search/ui/Search'
+import Results from '@widgets/results/ui/Results'
 
 /* components */
 
@@ -16,7 +16,7 @@ import Results from '@features/results/Results'
 
 const queryClient = new QueryClient()
 
-function App() {
+export default function App() {
   return (
     <div>
       <main>
@@ -34,5 +34,3 @@ function App() {
     </div>
   )
 }
-
-export default App

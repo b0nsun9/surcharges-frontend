@@ -6,7 +6,7 @@ import styles from './PlaceList.module.css'
 /* components */
 
 /* usecases */
-import MakeAddress from '@usecases/MakeAddress'
+import MakeAddress from '@shared/model/MakeAddress'
 
 interface PlacesListProps {
   places: []
