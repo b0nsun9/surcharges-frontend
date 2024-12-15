@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 /* components */
-import SearchBox from '@components/searchBox/SearchBox'
-import PlacesList from '@components/placeList/PlaceList'
-import Footer from '@components/footer/Footer'
+import SearchBox from '@shared/ui/searchbox/SearchBox'
+import PlacesList from './PlaceList'
+import Footer from '@shared/ui/footer/Footer'
 
 /* usecases */
-import SearchPlaces from '@usecases/SearchPlaces'
-
-import { useSearchStore } from '@features/search/SearchStore'
+import SearchPlaces from '@shared/model/SearchPlaces'
+import { useSearchStore } from '@shared/model/SearchStore'
 
 export default function Results() {
 
