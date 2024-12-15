@@ -2,24 +2,21 @@
 import styles from './SearchBox.module.css'
 
 /* frameworks */
-import React, { useState, ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent } from 'react'
 
 /* components */
 
 /* usecases */
 
 interface SearchBoxProps {
-  placeHolder: string
+  value: string
   onChange: (searchText: string) => void
   onSubmit: () => void
 }
 
 const SearchBox: React.FC<SearchBoxProps> = (props) => {
 
-  const [searchText, setSearchText] = useState(props.placeHolder)
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value)
     props.onChange(event.target.value)
   }
 
@@ -32,7 +29,7 @@ const SearchBox: React.FC<SearchBoxProps> = (props) => {
       <input
         className={styles.input}
         type="text"
-        value={searchText}
+        value={props.value}
         onChange={handleChange}
       />
       <button

@@ -2,65 +2,93 @@
 import styles from './Results.module.css'
 
 /* frameworks */
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { useState } from 'react'
 
 /* components */
 import SearchBox from '@components/searchBox/SearchBox'
-import Places from '@components/places/Places'
+import PlacesList from '@components/placeList/PlaceList'
 import Footer from '@components/footer/Footer'
 
 /* usecases */
 import SearchPlaces from '@usecases/SearchPlaces'
 
+import { useSearchStore } from '@features/search/SearchStore'
+
 export default function Results() {
 
-  const location = useLocation()
+  const { searchText, setSearchText } = useSearchStore()
+  const { places, setPlaces } = useSearchStore()
+  const { flushData, reset } = useSearchStore()
 
-  if (!location.state) {
-    return (
-      <div className={styles['wrong-access']}>
-        <p>Wrong access!</p>
-      </div>
-    )
-  }
-
-  const [searchText, setSearchText] = useState(location.state.searchText)
-
-  const { data, isFetching, refetch } = useQuery(
-    'places',
-    () => SearchPlaces(searchText),
-    {
-      refetchOnWindowFocus: false
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: 'places',
+    retry: false,
+    queryFn: () => SearchPlaces(searchText),
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setPlaces(data && data.places)
     }
-  )
-
+  })
 
   const handleOnChange = (text: string) => {
     setSearchText(text)
   }
 
   const handleOnSubmit = () => {
+    
+    flushData()
+
     if (searchText) {
       refetch()
     }
   }
 
+  const handleLoadMore = () => {
+    refetch()
+  }
+
+  const handleBackToSearch = () => {
+    reset()
+  }
+
   return (
     <div>
       <div className={styles.headerContainer}>
-        <Link to='/' className={styles['service-title']}>Surcharges</Link>
+        <Link
+          to='/'
+          className={styles['service-title']}
+          onClick={handleBackToSearch}
+        >Surcharges</Link>
         <SearchBox
-          placeHolder={searchText}
+          value={searchText}
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         />
       </div>
       <div>
-        {isFetching
-          ? <p className={styles.loading}>Loading</p>
-          : <Places places={data && data.places} />
+        {
+          isFetching
+            ? <p className={styles.loading}>Loading</p>
+            : <PlacesList
+              places={places}
+              selectedPlace={(id) =>
+                console.log('selected place:', id)
+              }
+            />
+        }
+      </div>
+      <div>
+        {
+          data && data.nextPageToken
+            ? <button
+              className={styles.button}
+              onClick={() =>
+                handleLoadMore()
+              }
+            >Load more
+            </button>
+            : null
         }
       </div>
       <div>
@@ -69,6 +97,7 @@ export default function Results() {
     </div>
   )
 }
+
 
 /* <APIProvider
           apiKey={googleMapsApiKey}

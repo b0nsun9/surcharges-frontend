@@ -2,26 +2,27 @@
 import styles from './Search.module.css'
 
 /* frameworks */
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 /* components */
 import SearchBox from '@components/searchBox/SearchBox'
 import Footer from '@components/footer/Footer'
+import { useSearchStore } from './SearchStore'
 
 /* usecases */
 
 export default function Search() {
 
-  const [searchText, setSearchText] = useState('')
   const navigate = useNavigate()
+
+  const { searchText, setSearchText } = useSearchStore()
 
   const handleOnChange = (text: string) => {
     setSearchText(text)
   }
   const handleOnSubmit = () => {
     if (searchText) {
-      navigate('/results', {state: {searchText: searchText}})
+      navigate('/results')
     }
   }
 
@@ -30,7 +31,7 @@ export default function Search() {
       <div>
         <p className={styles['service-title']}>Surcharges</p>
         <SearchBox
-          placeHolder=''
+          value={searchText}
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         />
