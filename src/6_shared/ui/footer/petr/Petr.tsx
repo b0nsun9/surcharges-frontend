@@ -1,12 +1,6 @@
-/* frameworks */
-
-/* components */
-
-/* usecases */
-
 export function Petr() {
   return (
-    <div>
+    <div className='flex items-center justify-center mt-2'>
       <p>Petr Utkin</p>
     </div>
   )
