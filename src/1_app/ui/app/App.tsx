@@ -18,7 +18,7 @@ export function App() {
               <Route path="/" element={<Main />} />
               <Route path="/:text" element={<Results />} />
               <Route path="/place/:id" element={<Detail />} />
-              <Route path="/report/:id" element={<Report />} />
+              <Route path="/report/:placeId" element={<Report />} />
             </Routes>
           </BrowserRouter>
         </QueryClientProvider>
