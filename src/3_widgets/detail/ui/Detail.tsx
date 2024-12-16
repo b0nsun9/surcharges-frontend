@@ -12,6 +12,10 @@ export function Detail() {
 
   const viewModel = usePlaceViewModel(id)
 
+  const handleOnClickToReport = () => {
+    navigation(`/report/${id}`)
+  }
+
   return (
     <div>
       <div className='flex items-center justify-center mt-10'>
