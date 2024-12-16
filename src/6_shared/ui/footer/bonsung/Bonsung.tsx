@@ -1,6 +1,3 @@
-/* styles */
-import styles from './Bonsung.module.css'
-
 /* frameworks */
 
 /* components */

@@ -1,6 +1,3 @@
-/* styles */
-import styles from './PlaceList.module.css'
-
 /* frameworks */
 
 /* components */
@@ -44,13 +41,12 @@ interface PlaceProps {
 function Place({ place, onClick }: PlaceProps) {
   return (
     <div
-      className={styles['place-wrapper']}
       onClick={() => onClick(place.id)}
     >
-      <div className={styles['place-name']}>
+      <div>
         <p>{place.displayName.text}</p>
       </div>
-      <div className={styles['place-address']}>
+      <div>
         <p>
           {
             MakeAddress(place.addressComponents, place.formattedAddress)

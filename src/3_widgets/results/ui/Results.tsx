@@ -1,6 +1,3 @@
-/* styles */
-import styles from './Results.module.css'
-
 /* frameworks */
 import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -59,10 +56,9 @@ export function Results() {
 
   return (
     <div>
-      <div className={styles.headerContainer}>
+      <div>
         <Link
           to='/'
-          className={styles['service-title']}
           onClick={handleBackToSearch}
         >Surcharges</Link>
         <SearchBox
@@ -74,7 +70,7 @@ export function Results() {
       <div>
         {
           isFetching
-            ? <p className={styles.loading}>Loading</p>
+            ? <p>Loading</p>
             : <PlacesList
               places={places}
               selectedPlace={handleSelectedPlace}
@@ -85,7 +81,6 @@ export function Results() {
         {
           data && data.nextPageToken
             ? <button
-              className={styles.button}
               onClick={() =>
                 handleLoadMore()
               }
