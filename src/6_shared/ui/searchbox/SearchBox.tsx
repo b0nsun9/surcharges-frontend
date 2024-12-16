@@ -1,4 +1,5 @@
 /* styles */
+import { Button, TextField } from '@mui/material'
 import styles from './SearchBox.module.css'
 
 /* frameworks */
@@ -26,16 +27,19 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
   }
   return (
     <form onSubmit={handleSearch}>
-      <input
-        className={styles.input}
-        type="text"
+      <TextField
+        variant='outlined'
+        size='small'
         value={props.value}
         onChange={handleChange}
-      />
-      <button
-        className={styles.button}
-        type="submit"
-      >Search</button>
+      >
+      </TextField>
+      <Button
+        type='submit'
+        variant='contained'
+      >
+        Search
+      </Button>
     </form>
   )
 }
