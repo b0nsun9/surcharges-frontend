@@ -1,15 +1,10 @@
-/* frameworks */
-
-/* components */
 import { Bonsung } from './bonsung/Bonsung'
 import { Petr } from './petr/Petr'
-
-/* usecases */
 
 export function Footer() {
   return (
     <div>
-      <footer>
+      <footer className='flex flex-col items-center justify-center'>
         <p>Made with ❤️ in Wellington</p>
         <Bonsung />
         <Petr />

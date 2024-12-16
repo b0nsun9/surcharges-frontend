@@ -1,12 +1,5 @@
-/* styles */
-import { Button, TextField } from '@mui/material'
-
-/* frameworks */
 import { ChangeEvent, FormEvent } from 'react'
-
-/* components */
-
-/* usecases */
+import { Button, TextField } from '@mui/material'
 
 interface SearchBoxProps {
   value: string
@@ -25,20 +18,24 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
     props.onSubmit()
   }
   return (
-    <form onSubmit={handleSearch}>
-      <TextField
-        variant='outlined'
-        size='small'
-        value={props.value}
-        onChange={handleChange}
-      >
-      </TextField>
-      <Button
-        type='submit'
-        variant='contained'
-      >
-        Search
-      </Button>
-    </form>
+    <form className='flex' onSubmit={handleSearch}>
+        <div className='mr-2'>
+          <TextField
+            variant='outlined'
+            size='small'
+            value={props.value}
+            onChange={handleChange}
+          >
+          </TextField>
+        </div>
+        <div className='ml-2'>
+          <Button
+            type='submit'
+            variant='contained'
+          >
+            Search
+          </Button>
+        </div>
+      </form>
   )
 }
