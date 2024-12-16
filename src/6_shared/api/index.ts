@@ -1,0 +1,1 @@
+export { SearchPlaces } from "./SearchPlaces/SearchPlaces"

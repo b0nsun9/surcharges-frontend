@@ -25,12 +25,12 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      "@app/*": ["src/app/*"],
-      "@pages/*": ["src/pages/*"],
-      "@widgets/*": ["src/widgets/*"],
-      "@features/*": ["src/features/*"],
-      "@entities/*": ["src/entities/*"],
-      "@shared/*": ["src/shared/*"],
+      "@app/*": ["src/1_app/*"],
+      "@pages/*": ["src/2_pages/*"],
+      "@widgets/*": ["src/3_widgets/*"],
+      "@features/*": ["src/4_features/*"],
+      "@entities/*": ["src/5_entities/*"],
+      "@shared/*": ["src/6_shared/*"],
     }
   },
   "include": ["src"]
