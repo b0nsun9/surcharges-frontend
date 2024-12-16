@@ -8,7 +8,6 @@ import { Place } from "@entities/Place"
 import { GetPlaceDetail } from "../api/GetPlaceDetail"
 import { usePlaceDetailStore } from "../model/PlaceDetailStore"
 
-
 export function Detail() {
 
   const { id } = useParams()

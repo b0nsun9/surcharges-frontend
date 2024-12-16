@@ -1,6 +1,5 @@
 /* styles */
 import { Button, TextField } from '@mui/material'
-import styles from './SearchBox.module.css'
 
 /* frameworks */
 import { ChangeEvent, FormEvent } from 'react'

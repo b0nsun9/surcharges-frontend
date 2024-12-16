@@ -1,6 +1,3 @@
-/* styles */
-import styles from '.Petr.module.css'
-
 /* frameworks */
 
 /* components */

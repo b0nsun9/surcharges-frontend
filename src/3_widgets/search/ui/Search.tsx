@@ -1,6 +1,3 @@
-/* styles */
-import styles from './Search.module.css'
-
 /* frameworks */
 import { useNavigate } from 'react-router-dom'
 
@@ -27,16 +24,16 @@ export function Search() {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div>
       <div>
-        <p className={styles['service-title']}>Surcharges</p>
+        <p>Surcharges</p>
         <SearchBox
           value={searchText}
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         />
       </div>
-      <div className={styles.footer}>
+      <div>
         <Footer />
       </div>
     </div>

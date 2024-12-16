@@ -1,6 +1,3 @@
-/* styles */
-import styles from './Footer.module.css'
-
 /* frameworks */
 
 /* components */
@@ -11,7 +8,7 @@ import { Petr } from './petr/Petr'
 
 export function Footer() {
   return (
-    <div className={styles.contributers}>
+    <div>
       <footer>
         <p>Made with ❤️ in Wellington</p>
         <Bonsung />
