@@ -1,92 +1,53 @@
-/* frameworks */
-import { Link } from 'react-router-dom'
-import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-/* components */
-import { SearchBox, Footer } from '@shared/ui'
+import { SearchBox } from '@features/searchBox'
+import { Footer } from '@shared/ui'
+
+import { usePlaceListViewModel } from '../model/useGetPlaces'
 import PlacesList from './placelist/PlaceList'
-
-/* usecases */
-import { SearchPlaces } from '@shared/api'
-import { useSearchStore } from '@shared/model/SearchStore/SearchStore'
 
 export function Results() {
 
+  const { text } = useParams() as { text: string }
+
   const navigate = useNavigate()
 
-  const { searchText, setSearchText } = useSearchStore()
-  const { places, setPlaces } = useSearchStore()
-  const { flushData, reset } = useSearchStore()
-
-  const { data, isFetching, refetch } = useQuery({
-    queryKey: 'places',
-    retry: false,
-    queryFn: () => SearchPlaces(searchText),
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      setPlaces(data && data.places)
-    }
-  })
-
-  const handleOnChange = (text: string) => {
-    setSearchText(text)
-  }
-
-  const handleOnSubmit = () => {
-    
-    flushData()
-
-    if (searchText) {
-      refetch()
-    }
-  }
-
   const handleLoadMore = () => {
-    refetch()
-  }
-
-  const handleBackToSearch = () => {
-    reset()
+    // refetch()
   }
 
   const handleSelectedPlace = (id: string) => {
     navigate(`/place/${id}`)
   }
 
+  const viewModel = usePlaceListViewModel(text)
+
   return (
     <div>
-      <div>
-        <Link
-          to='/'
-          onClick={handleBackToSearch}
-        >Surcharges</Link>
-        <SearchBox
-          value={searchText}
-          onChange={handleOnChange}
-          onSubmit={handleOnSubmit}
-        />
+      <div className='flex items-center justify-center mt-10'>
+        <Link to='/' className='mr-10 font-bold text-black text-3xl cursor-pointer'>Surcharges</Link>
+        <SearchBox text={text} replace={true} />
       </div>
       <div>
         {
-          isFetching
+          (viewModel.isFetching && viewModel.convertPlaces.places?.length === 0)
             ? <p>Loading</p>
             : <PlacesList
-              places={places}
+              places={viewModel.convertPlaces.places ?? []}
               selectedPlace={handleSelectedPlace}
             />
         }
       </div>
       <div>
         {
-          data && data.nextPageToken
-            ? <button
-              onClick={() =>
-                handleLoadMore()
-              }
-            >Load more
-            </button>
-            : null
+          // data && data.nextPageToken
+          //   ? <button
+          //     onClick={() =>
+          //       handleLoadMore()
+          //     }
+          //   >Load more
+          //   </button>
+          //   : null
         }
       </div>
       <div>

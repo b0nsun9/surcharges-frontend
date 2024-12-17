@@ -1,7 +1,7 @@
-import { Place } from '@entities/Place'
-import { AddressComponents } from '@entities/Place'
+import { PlaceDTO } from '@entities/Place'
+import { AddressComponentsDTO } from '@entities/Place'
 
-export async function GetPlaceDetail(id: string): Promise<Place> {
+export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
 
   const response = await fetch(`https://places.googleapis.com/v1/places/${id}`, {
     method: 'GET',
@@ -19,12 +19,13 @@ export async function GetPlaceDetail(id: string): Promise<Place> {
   const data = await response.json()
 
   return {
+    id: data.id,
     displayName: {
       text: data.displayName.text,
       languageCode: data.displayName.languageCode
     },
     formattedAddress: data.formattedAddress,
-    addressComponents: data.addressComponents.map((component: AddressComponents) => {
+    addressComponents: data.addressComponents.map((component: AddressComponentsDTO) => {
       return {
         longText: component.longText,
         shortText: component.shortText,

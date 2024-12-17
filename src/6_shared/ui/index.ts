@@ -1,2 +1,2 @@
-export { SearchBox } from "./searchbox/SearchBox"
+export { SearchForm } from "./searchform/SearchForm"
 export { Footer } from "./footer/Footer"

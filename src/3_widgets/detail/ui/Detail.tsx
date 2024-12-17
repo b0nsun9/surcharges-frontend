@@ -2,7 +2,6 @@ import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps"
 
-import { MakeAddress } from "@features/address"
 import { Place } from "@entities/Place"
 
 import { GetPlaceDetail } from "../api/GetPlaceDetail"
@@ -34,7 +33,7 @@ export function Detail() {
       <div>
         <p>
           {
-            MakeAddress(place.addressComponents, place.formattedAddress)
+            
           }
         </p>
       </div>

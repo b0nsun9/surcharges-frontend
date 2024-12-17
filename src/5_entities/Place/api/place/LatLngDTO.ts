@@ -1,4 +1,4 @@
-export type LatLng = {
+export type LatLngDTO = {
   latitude: number,
   longitude: number
 }
