@@ -1,6 +1,6 @@
-import { AddressComponents } from "@entities/Place"
+import { AddressComponentsDTO } from "@entities/Place"
 
-export function MakeAddress(addressComponents: AddressComponents[], formattedAddress?: string) {
+export function MakeAddress(addressComponents: AddressComponentsDTO[], formattedAddress?: string) {
 
   if (formattedAddress) {
     return formattedAddress

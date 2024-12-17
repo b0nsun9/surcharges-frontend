@@ -1,4 +1,4 @@
-export type LocalizedText = {
+export type LocalizedTextDTO = {
   text: string,
   languageCode: string
 }

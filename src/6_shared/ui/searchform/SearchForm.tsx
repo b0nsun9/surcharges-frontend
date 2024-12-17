@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEvent } from 'react'
 import { Button, TextField } from '@mui/material'
 
-interface SearchBoxProps {
+interface SearchFormProps {
   value: string
   onChange: (searchText: string) => void
   onSubmit: () => void
 }
 
-export const SearchBox: React.FC<SearchBoxProps> = (props) => {
+export const SearchForm: React.FC<SearchFormProps> = (props) => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     props.onChange(event.target.value)
@@ -17,6 +17,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
     event.preventDefault()
     props.onSubmit()
   }
+  
   return (
     <form className='flex' onSubmit={handleSearch}>
         <div className='mr-2'>

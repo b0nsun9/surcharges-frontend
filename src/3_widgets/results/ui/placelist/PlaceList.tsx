@@ -1,12 +1,9 @@
-/* frameworks */
+import { Place } from "@entities/Place"
 
-/* components */
-
-/* usecases */
-import { MakeAddress } from '@features/address'
+import { PlaceItem } from "./PlaceItem"
 
 interface PlacesListProps {
-  places: []
+  places: Place[]
   selectedPlace: (id: string) => void
 }
 
@@ -17,10 +14,10 @@ export default function PlacesList({ places, selectedPlace }: PlacesListProps) {
   }
 
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center mt-10 mb-10'>
       {
-        places && places.map((place: any) => (
-          <Place
+        places && places.map((place: Place) => (
+          <PlaceItem
             place={place}
             key={place.id}
             onClick={(id) =>
@@ -29,30 +26,6 @@ export default function PlacesList({ places, selectedPlace }: PlacesListProps) {
           />
         ))
       }
-    </div>
-  )
-}
-
-interface PlaceProps {
-  place: any
-  onClick: (id: string) => void
-}
-
-function Place({ place, onClick }: PlaceProps) {
-  return (
-    <div
-      onClick={() => onClick(place.id)}
-    >
-      <div>
-        <p>{place.displayName.text}</p>
-      </div>
-      <div>
-        <p>
-          {
-            MakeAddress(place.addressComponents, place.formattedAddress)
-          }
-        </p>
-      </div>
     </div>
   )
 }
