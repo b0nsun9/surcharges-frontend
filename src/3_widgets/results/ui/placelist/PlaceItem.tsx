@@ -1,4 +1,4 @@
-import { Place } from "@entities/Place"
+import { Place } from "@entities/place/index"
 
 interface PlaceItemProps {
   place: Place

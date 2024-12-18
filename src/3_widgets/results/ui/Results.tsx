@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { SearchBox } from '@features/searchBox'
 import { Footer } from '@shared/ui'
 
-import { usePlaceListViewModel } from '../model/useGetPlaces'
+import { usePlaceListViewModel } from '../model/usePlaceListViewModel'
 import PlacesList from './placelist/PlaceList'
 
 export function Results() {

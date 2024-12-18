@@ -1,9 +1,9 @@
 import { useMemo } from "react"
 
-import { PlaceDTO, Place } from "@entities/Place"
+import { PlaceDTO, Place } from "@entities/place/index"
 
 import { useGetPlacesQuery } from "./useGetPlacesQuery"
-import { MakeAddress } from "./MakeAddress"
+import { MakeAddress } from "@shared/model"
 
 export const usePlaceListViewModel = (searchText: string, nextPageToken?: string) => {
   const { data: useGetPlacesQueryData, isFetching } = useGetPlacesQuery(searchText, nextPageToken)

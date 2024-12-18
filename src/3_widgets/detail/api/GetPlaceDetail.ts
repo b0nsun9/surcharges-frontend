@@ -1,5 +1,5 @@
-import { PlaceDTO } from '@entities/Place'
-import { AddressComponentsDTO } from '@entities/Place'
+import { PlaceDTO } from '@entities/place/index'
+import { AddressComponentsDTO } from '@entities/place/index'
 
 export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
 
@@ -8,7 +8,7 @@ export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
     headers: {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-      'X-Goog-FieldMask': "id,displayName,formattedAddress,addressComponents,location",
+      'X-Goog-FieldMask': "id,displayName,addressComponents,location",
     }
   })
 
@@ -24,7 +24,6 @@ export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
       text: data.displayName.text,
       languageCode: data.displayName.languageCode
     },
-    formattedAddress: data.formattedAddress,
     addressComponents: data.addressComponents.map((component: AddressComponentsDTO) => {
       return {
         longText: component.longText,
