@@ -3,16 +3,14 @@ import { Footer } from '@shared/ui'
 
 export function Main() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
-      <div className='flex flex-col items-center justify-center'>
-        <div className='mb-10'>
-          <p className='font-bold text-black text-6xl'>Surcharges</p>
-        </div>
-        <div className='mb-10'>
-          <SearchBox text='' replace={false} />
-        </div>
+    <div className='flex flex-col items-center justify-center h-dvh'>
+      <div className='flex flex-col items-center justify-center w-full'>
+        <p className='font-bold text-black sm:text-6xl text-5xl'>Surcharges</p>
       </div>
-      <div>
+      <div className='mt-10 sm:w-1/4 w-4/5'>
+        <SearchBox text='' replace={false} />
+      </div>
+      <div className='mt-10'>
         <Footer />
       </div>
     </div>
