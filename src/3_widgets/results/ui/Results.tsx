@@ -13,7 +13,7 @@ export function Results() {
   const navigate = useNavigate()
 
   // const handleLoadMore = () => {
-    // refetch()
+  // refetch()
   // }
 
   const handleSelectedPlace = (id: string) => {
@@ -24,9 +24,11 @@ export function Results() {
 
   return (
     <div>
-      <div className='flex items-center justify-center mt-10'>
-        <Link to='/' className='mr-10 font-bold text-black text-3xl cursor-pointer'>Surcharges</Link>
-        <SearchBox text={text} replace={true} />
+      <div className='flex lg:flex-row flex-col items-center justify-center mt-10 w-full'>
+        <Link to='/' className='lg:mr-10 font-bold text-black text-5xl cursor-pointer'>Surcharges</Link>
+        <div className='lg:w-1/4 w-4/5 lg:mt-0 mt-10'>
+          <SearchBox text={text} replace={true} />
+        </div>
       </div>
       <div>
         {
@@ -50,9 +52,7 @@ export function Results() {
           //   : null
         }
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }

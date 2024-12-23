@@ -10,9 +10,7 @@ export function Main() {
       <div className='mt-10 sm:w-1/4 w-4/5'>
         <SearchBox text='' replace={false} />
       </div>
-      <div className='mt-10'>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }
