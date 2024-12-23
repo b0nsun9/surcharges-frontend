@@ -1,0 +1,1 @@
+// export { analytics, database } from "./firebase/firebase"

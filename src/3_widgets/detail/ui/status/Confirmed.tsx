@@ -1,5 +1,6 @@
 interface ConfirmedProps {
   percentage: number
+  onClickToReport: () => void
 }
 
 export function Confirmed(props: ConfirmedProps) {
@@ -18,7 +19,12 @@ export function Confirmed(props: ConfirmedProps) {
         </div>
       </div>
       <div className='flex justify-center'>
-        <p className='underline cursor-pointer'>Something wrong?</p>
+        <p
+          className='underline cursor-pointer'
+          onClick={props.onClickToReport}
+        >
+          Something wrong?
+        </p>
       </div>
     </div>
   )

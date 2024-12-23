@@ -3,6 +3,7 @@
 
 ### API Keys ###
 .env
+.env.*
 
 ### NPM ###
 package-lock.json

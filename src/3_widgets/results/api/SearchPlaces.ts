@@ -1,34 +1,22 @@
 import { PlaceDTO } from '@entities/place/index'
 import { AddressComponentsDTO } from '@entities/place/index'
 
-export async function SearchPlaces(searchText: string, nextPageToken?: string): Promise<{places: PlaceDTO[], nextPageToken?: string}> {
+export async function SearchPlaces(searchText: string, nextPageToken?: string): Promise<{ places: PlaceDTO[], nextPageToken?: string }> {
 
-  console.log('searchFor: ', searchText)
-  console.log('nextPageToken: ', nextPageToken)
+  const baseURL = import.meta.env.VITE_BASE_URL
 
-  const body: string = nextPageToken && nextPageToken != ''
-    ? JSON.stringify({
-      'textQuery': searchText,
-      'pageToken': nextPageToken
-    })
-    : JSON.stringify({
-      'textQuery': searchText,
-    })
+  const requestURL = nextPageToken && nextPageToken != '' 
+  ? `${baseURL}/places?searchText=${searchText}&nextPageToken=${nextPageToken}`
+  : `${baseURL}/places?searchText=${searchText}`
 
-  const response = await fetch('https://places.googleapis.com/v1/places:searchText', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Goog-Api-Key': import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-      'X-Goog-FieldMask': "nextPageToken,places.id,places.displayName,places.formattedAddress,places.addressComponents",
-    },
-    body: body
+  const response = await fetch(requestURL, {
+    method: 'GET'
   })
 
   if (!response.ok) {
     throw new Error('Network response was not okay')
   }
-  
+
   const data = await response.json()
 
   return {
@@ -39,7 +27,6 @@ export async function SearchPlaces(searchText: string, nextPageToken?: string): 
           text: place.displayName.text,
           languageCode: place.displayName.languageCode
         },
-        formattedAddress: place.formattedAddress,
         addressComponents: place.addressComponents.map((component: AddressComponentsDTO) => {
           return {
             longText: component.longText,

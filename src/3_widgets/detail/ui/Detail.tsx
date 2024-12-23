@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps"
 
 import { SearchBox } from "@features/searchBox"
@@ -12,8 +12,15 @@ export function Detail() {
 
   const viewModel = usePlaceViewModel(id)
 
-  const handleOnClickToReport = () => {
-    navigation(`/report/${id}`)
+  const navigate = useNavigate()
+
+  const onClickToReport = () => {
+    navigate('/report', {
+      state: {
+        placeId: viewModel.convertPlace.id,
+        displayName: viewModel.convertPlace.displayName
+      }
+    })
   }
 
   return (
@@ -28,14 +35,17 @@ export function Detail() {
           <p>{viewModel.convertPlace.address}</p>
         </div>
         <div className='flex flex-col items-center justify-center mt-10'>
-          <SurchargesDetail placeId={id}></SurchargesDetail>
+          <SurchargesDetail
+            placeId={id}
+            onClickToReport={onClickToReport}
+          />
         </div>
         <div className='flex flex-col items-center justify-center mt-10'>
           {
             viewModel.isFetching
               ? <p>Loading...</p>
               : <div className='aspect-square sm:size-[400px]'>
-                <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_JAVASCRIPT_API_KEY}>
                   <Map
                     mapId={'7878137321951141'}
                     defaultZoom={18}
