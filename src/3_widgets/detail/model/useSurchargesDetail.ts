@@ -1,6 +1,5 @@
 import { useMemo } from "react"
 
-import { Surcharges } from "@entities/surcharges"
 import { SurchargesStatus } from "@entities/surcharges"
 
 import { useGetSurchargesQuery } from "./useGetSurchargesQuery"

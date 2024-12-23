@@ -1,5 +1,7 @@
 export async function GetSurcharges(id: string): Promise<string> {
 
+  console.log(id)
+
   const response = await fetch(`http://localhost:5062/Surcharge`, {
     method: 'GET',
     headers: {

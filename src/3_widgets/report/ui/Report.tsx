@@ -19,7 +19,7 @@ export function Report() {
     )
   }
 
-  const { placeId, displayName } = location
+  const { displayName } = location
 
   const amountsViewModel = useReportViewModel()
 

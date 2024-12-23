@@ -12,9 +12,9 @@ export function Results() {
 
   const navigate = useNavigate()
 
-  const handleLoadMore = () => {
+  // const handleLoadMore = () => {
     // refetch()
-  }
+  // }
 
   const handleSelectedPlace = (id: string) => {
     navigate(`/place/${id}`)
