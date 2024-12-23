@@ -1,5 +1,6 @@
 interface ReportedProps {
   percentage: number
+  onClickToReport: () => void
 }
 
 export function Reported(props: ReportedProps) {
@@ -18,7 +19,12 @@ export function Reported(props: ReportedProps) {
         </div>
       </div>
       <div className='flex justify-center'>
-        <p className='underline cursor-pointer'>Do you want to report another one?</p>
+        <p
+          className='underline cursor-pointer'
+          onClick={props.onClickToReport}
+        >
+          Do you want to report another one?
+        </p>
       </div>
     </div>
   )
