@@ -14,7 +14,7 @@ export function PlaceItem({ place, onClick }: PlaceItemProps) {
       <div className='font-bold'>
         <p>{place.displayName}</p>
       </div>
-      <div>
+      <div className='text-center'>
         <p>{place.address}</p>
       </div>
     </div>

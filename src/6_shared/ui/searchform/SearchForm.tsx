@@ -20,10 +20,11 @@ export const SearchForm: React.FC<SearchFormProps> = (props) => {
   
   return (
     <form className='flex' onSubmit={handleSearch}>
-        <div className='mr-2'>
+        <div className='mr-2 w-full'>
           <TextField
             variant='outlined'
             size='small'
+            fullWidth
             value={props.value}
             onChange={handleChange}
           >
