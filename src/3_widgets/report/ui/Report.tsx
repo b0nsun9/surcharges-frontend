@@ -5,7 +5,7 @@ import { LoadingButton } from "@mui/lab"
 import { UploadButton } from "./components/UploadButton"
 
 import { MakeURL } from "../model/usecases/MakeURL"
-import { WrongAccess } from "@shared/ui"
+import { Footer, WrongAccess } from "@shared/ui"
 
 import { useReportViewModel } from "../model/viewmodels/useReportViewModel"
 
@@ -39,11 +39,11 @@ export function Report() {
   return (
     <div className=' ml-10 mr-10'>
       <div className='flex flex-col items-center justify-center mt-10'>
-        <p className='text-3xl mr-2 text-center'>You are going to report surcharge information for</p>
-        <p className='text-5xl font-bold text-center'>{displayName}</p>
+        <p className='sm:text-3xl text-xl mr-2 text-center'>You are going to report surcharge information for</p>
+        <p className='sm:text-5xl text-2xl font-bold text-center'>{displayName}</p>
       </div>
       <div className='flex flex-col items-center justify-center mt-10 gap-4'>
-        <p className='text-base'>
+        <p className='text-center'>
           Please upload a photo of the receipt or terminal screen📸
         </p>
         <UploadButton
@@ -60,7 +60,7 @@ export function Report() {
         }
         {
           amountsViewModel.isCalculated
-            ? <div className='flex flex-col gap-4 mt-10'>
+            ? <div className='flex flex-col gap-4'>
               <TextField
                 label='Total Amount'
                 variant='outlined'
@@ -93,6 +93,7 @@ export function Report() {
             : null
         }
       </div>
+      <Footer />
     </div>
   )
 }
