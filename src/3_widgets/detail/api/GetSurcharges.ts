@@ -1,8 +1,8 @@
 export async function GetSurcharges(id: string): Promise<string> {
 
-  console.log(id)
+  const baseURL = import.meta.env.VITE_BASE_URL
 
-  const response = await fetch(`http://localhost:5062/Surcharge`, {
+  const response = await fetch(`${baseURL}/surcharge?placeId=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

@@ -16,18 +16,17 @@ export function Detail() {
   const onClickToReport = () => {
     navigate('/report', {
       state: {
-        placeId: viewModel.convertPlace.id,
-        displayName: viewModel.convertPlace.displayName
+        place: viewModel.placeModel
       }
     })
   }
 
   return (
-    <div>
+    <div className='sm:ml-10 ml-5 sm:mr-10 mr-5'>
       <div>
         <div className='flex flex-col items-center justify-center mt-10'>
-          <p className='font-bold text-center text-3xl'>{viewModel.convertPlace.displayName}</p>
-          <p className='text-center'>{viewModel.convertPlace.address}</p>
+          <p className='font-bold text-center text-3xl'>{viewModel.placeUI.name}</p>
+          <p className='text-center'>{viewModel.placeUI.address}</p>
         </div>
         <div className='flex flex-col items-center justify-center mt-10'>
           <SurchargesDetail
@@ -39,14 +38,14 @@ export function Detail() {
           {
             viewModel.isFetching
               ? <p>Loading...</p>
-              : <div className='aspect-square sm:size-[400px] size-11/12'>
+              : <div className='aspect-square sm:size-[400px] size-full'>
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_JAVASCRIPT_API_KEY}>
                   <Map
                     mapId={import.meta.env.VITE_GOOGLE_MAPS_MAP_ID}
                     defaultZoom={18}
-                    defaultCenter={{ lat: viewModel.convertPlace.location?.latitude ?? 0, lng: viewModel.convertPlace.location?.longitude ?? 0 }}
+                    defaultCenter={{ lat: viewModel.placeUI.location.latitude, lng: viewModel.placeUI.location.longitude }}
                   >
-                    <AdvancedMarker position={{ lat: viewModel.convertPlace.location?.latitude ?? 0, lng: viewModel.convertPlace.location?.longitude ?? 0 }}></AdvancedMarker>
+                    <AdvancedMarker position={{ lat: viewModel.placeUI.location.latitude, lng: viewModel.placeUI.location?.longitude}}></AdvancedMarker>
                   </Map>
                 </APIProvider>
               </div>

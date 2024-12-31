@@ -1,4 +1,4 @@
-export type Location = {
+export type LatLngModel = {
   latitude: number,
   longitude: number
 }
