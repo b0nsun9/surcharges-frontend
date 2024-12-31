@@ -1,5 +1,6 @@
 import { PlaceDTO } from '@entities/place/index'
 import { AddressComponentsDTO } from '@entities/place/index'
+import { Timestamp } from 'firebase/firestore'
 
 export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
 
@@ -17,6 +18,14 @@ export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
   
   const data = await response.json()
 
+  const reportedDate = ((): Timestamp | undefined => {
+    if (data.reportedDate === undefined || data.reportedDate === null) {
+      return undefined
+    }
+
+    return new Timestamp(data.reportedDate._seconds, data.reportedDate._nanoseconds)
+  })
+  
   return {
     id: data.id,
     displayName: {
@@ -33,6 +42,8 @@ export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
     location: {
       latitude: data.location.latitude,
       longitude: data.location.longitude
-    }
+    },
+    rate: data.rate,
+    reportedDate: reportedDate()
   }
 }

@@ -2,8 +2,9 @@ import { useNavigate, useParams } from "react-router-dom"
 import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps"
 
 import { usePlaceViewModel } from "../model/usePlaceViewModel"
-import { SurchargesDetail } from "./SurchargesDetail"
+import { SurchargesDetail } from "./components/surchargeInformation/SurchargesDetail"
 import { Footer } from "@shared/ui"
+import { GoogleMap } from "./components/map/GoogleMap"
 
 export function Detail() {
 
@@ -30,27 +31,11 @@ export function Detail() {
         </div>
         <div className='flex flex-col items-center justify-center mt-10'>
           <SurchargesDetail
-            placeId={id}
+            surchargeModel={viewModel.surchargeModel}
             onClickToReport={onClickToReport}
           />
         </div>
-        <div className='flex flex-col items-center justify-center mt-10'>
-          {
-            viewModel.isFetching
-              ? <p>Loading...</p>
-              : <div className='aspect-square sm:size-[400px] size-full'>
-                <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_JAVASCRIPT_API_KEY}>
-                  <Map
-                    mapId={import.meta.env.VITE_GOOGLE_MAPS_MAP_ID}
-                    defaultZoom={18}
-                    defaultCenter={{ lat: viewModel.placeUI.location.latitude, lng: viewModel.placeUI.location.longitude }}
-                  >
-                    <AdvancedMarker position={{ lat: viewModel.placeUI.location.latitude, lng: viewModel.placeUI.location?.longitude}}></AdvancedMarker>
-                  </Map>
-                </APIProvider>
-              </div>
-          }
-        </div>
+        <GoogleMap isFetching={viewModel.isFetching} placeUI={viewModel.placeUI} />
       </div>
       <Footer />
     </div>

@@ -5,6 +5,9 @@ import { MakeAddress } from "@shared/model"
 
 import { PlaceModel } from "@entities/place"
 import { PlaceUI } from "@entities/place"
+import { SurchargeModel } from "@entities/surcharges"
+import { SurchargesStatus } from "@entities/surcharges"
+import { Timestamp } from "firebase/firestore"
 
 export const usePlaceViewModel = (placeId: string) => {
   const { data: useGetPlaceQueryData, isFetching } = useGetPlaceQuery(placeId)
@@ -12,7 +15,10 @@ export const usePlaceViewModel = (placeId: string) => {
   const placeModel = useMemo((): PlaceModel => {
     return {
       id: useGetPlaceQueryData?.id ?? '',
-      displayName: useGetPlaceQueryData?.displayName.text ?? '',
+      displayName: {
+        text: useGetPlaceQueryData?.displayName.text ?? '',
+        languageCode: useGetPlaceQueryData?.displayName.languageCode ?? ''
+      },
       addressComponents: useGetPlaceQueryData?.addressComponents.map((component) => {
         return {
           longText: component.longText,
@@ -33,7 +39,7 @@ export const usePlaceViewModel = (placeId: string) => {
   const placeUI = useMemo((): PlaceUI => {
     return {
       id: placeModel.id,
-      name: placeModel.displayName,
+      name: placeModel.displayName.text,
       address: MakeAddress(placeModel.addressComponents),
       location: placeModel.location
     }
@@ -41,5 +47,21 @@ export const usePlaceViewModel = (placeId: string) => {
     [placeModel]
   )
 
-  return { placeModel, placeUI, isFetching }
+  const surchargeModel = useMemo((): SurchargeModel => {
+
+    if (!useGetPlaceQueryData?.rate && !useGetPlaceQueryData?.reportedDate) {
+      return {
+        status: SurchargesStatus.Unknown
+      }
+    }
+    
+    return {
+      status: SurchargesStatus.Reported,
+      rate: useGetPlaceQueryData?.rate,
+      reportedDate: useGetPlaceQueryData.reportedDate?.seconds
+    }
+    
+  }, [useGetPlaceQueryData, isFetching])
+
+  return { placeModel, placeUI, surchargeModel, isFetching }
 }

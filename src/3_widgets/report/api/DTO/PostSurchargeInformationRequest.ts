@@ -1,24 +1,7 @@
-type Location = {
-  latitude: number
-  longitude: number
-}
-
-type addressComponents = {
-  longText: string
-  shortText: string
-  types: string[]
-  languageCode: string
-}
-
-type Place = {
-  id: string
-  name: string
-  address: addressComponents[]
-  location: Location
-}
+import { PlaceDTO } from "@entities/place"
 
 export type PostSurchargeInformationRequest = {
-  place: Place
+  place: PlaceDTO
   image: string
   totalAmount: number
   surchargeAmount: number

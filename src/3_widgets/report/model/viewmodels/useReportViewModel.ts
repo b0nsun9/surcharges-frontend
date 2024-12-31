@@ -39,7 +39,7 @@ export const useReportViewModel = (initialPlaceModel: PlaceModel) => {
   const placeUI = useMemo((): PlaceUI => {
     return {
       id: _placeModel.id,
-      name: _placeModel.displayName,
+      name: _placeModel.displayName.text,
       address: MakeAddress(_placeModel.addressComponents),
       location: {
         latitude: _placeModel.location.latitude,
@@ -88,8 +88,8 @@ export const useReportViewModel = (initialPlaceModel: PlaceModel) => {
         {
           place: {
             id: _placeModel.id,
-            name: _placeModel.displayName,
-            address: _placeModel.addressComponents.map((component) => {
+            displayName: _placeModel.displayName,
+            addressComponents: _placeModel.addressComponents.map((component) => {
               return {
                 longText: component.longText,
                 shortText: component.shortText,
