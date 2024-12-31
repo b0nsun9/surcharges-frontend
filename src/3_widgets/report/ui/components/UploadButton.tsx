@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 
 interface UploadButtonProps {
   loading: boolean
+  disabled: boolean
   onChange: (files: FileList) => void
 }
 
@@ -21,6 +22,7 @@ export function UploadButton(props: UploadButtonProps) {
       component='label'
       variant='contained'
       loading={props.loading}
+      disabled={props.disabled}
     >
       Upload
       <VisuallyHiddenInput
@@ -33,7 +35,7 @@ export function UploadButton(props: UploadButtonProps) {
   )
 }
 
-export const VisuallyHiddenInput = styled('input')({
+const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
   height: 1,

@@ -1,13 +1,16 @@
-import { ChangeEvent } from "react"
-import { useLocation } from "react-router-dom"
-import { TextField } from "@mui/material"
-import { LoadingButton } from "@mui/lab"
-import { UploadButton } from "./components/UploadButton"
+import { ChangeEvent, useEffect } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 
-import { MakeURL } from "../model/usecases/MakeURL"
-import { Footer, WrongAccess } from "@shared/ui"
-
+import { PlaceModel } from "@entities/place"
 import { useReportViewModel } from "../model/viewmodels/useReportViewModel"
+
+import { ErrorAlert, Footer, WrongAccess } from "@shared/ui"
+import { PageHeader } from "./components/PageHeader"
+import { UploadButton } from "./components/UploadButton"
+import { NotExtractedFromImage } from "./components/NotExtractedFromImage"
+import { InputAmounts } from "./components/InputAmounts"
+import { ReportButton } from "./components/ReportButton"
+import { UploadSuccess } from "./components/UploadSuccess"
 
 export function Report() {
 
@@ -19,13 +22,13 @@ export function Report() {
     )
   }
 
-  const { displayName } = location
+  const { place } = location as { place: PlaceModel }
 
-  const amountsViewModel = useReportViewModel()
+  const amountsViewModel = useReportViewModel(place)
 
   const handleFileChange = async (files: FileList) => {
-    const url = MakeURL(files[0])
-    amountsViewModel.extractAmounts(url)
+    const file = files[0]
+    amountsViewModel.extractAmounts(file)
   }
 
   const handleOnChangeTotalAmount = (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,64 +39,57 @@ export function Report() {
     amountsViewModel.setSurchargeAmount(event.target.value)
   }
 
+  useEffect(() => {
+
+    return () => {
+      amountsViewModel.resetAllStores()
+      console.log('Reset all stores')
+    }
+
+  }, [location.pathname])
+
+  const navigate = useNavigate()
+
+  const handleBackToPlace = () => {
+    navigate(`/place/${place.id}`, { replace: true })
+  }
+
   return (
-    <div className=' ml-10 mr-10'>
-      <div className='flex flex-col items-center justify-center mt-10'>
-        <p className='sm:text-3xl text-xl mr-2 text-center'>You are going to report surcharge information for</p>
-        <p className='sm:text-5xl text-2xl font-bold text-center'>{displayName}</p>
-      </div>
-      <div className='flex flex-col items-center justify-center mt-10 gap-4'>
-        <p className='text-center'>
-          Please upload a photo of the receipt or terminal screen📸
-        </p>
+    <div className='ml-10 mr-10'>
+      <PageHeader placeName={place.displayName} />
+      <div className='flex flex-col items-center justify-center mt-4 gap-4'>
         <UploadButton
-          loading={amountsViewModel.isCalculating}
+          loading={amountsViewModel.isUploadImageButtonLoading}
+          disabled={amountsViewModel.isUploadImageButtonDisabled}
           onChange={handleFileChange}
         />
-        {
-          !amountsViewModel.isExtractable
-            ? <p className='text-red-500 text-center'>
-              Unfortunately, it seems that the amounts from the image you provided were not recognised.<br />
-              Please input both types of amounts manually.
-            </p>
-            : null
-        }
-        {
-          amountsViewModel.isCalculated
-            ? <div className='flex flex-col gap-4'>
-              <TextField
-                label='Total Amount'
-                variant='outlined'
-                size='small'
-                value={amountsViewModel.totalAmount}
-                onChange={handleOnChangeTotalAmount}
-              />
-              <TextField
-                label='Amount of Surcharges'
-                variant='outlined'
-                size='small'
-                value={amountsViewModel.surchargeAmount}
-                onChange={handleOnChangeSurchargeAmount}
-              />
-            </div>
-            : null
-        }
+        <NotExtractedFromImage isExtracted={amountsViewModel.isExtracted} />
+        <InputAmounts
+          isCalculated={amountsViewModel.isCalculated}
+          totalAmountValue={amountsViewModel.totalAmount}
+          totalAmountDisabled={amountsViewModel.isTotalAmountTextFieldDisabled}
+          totalAmountOnChange={handleOnChangeTotalAmount}
+          surchargeAmountValue={amountsViewModel.surchargeAmount}
+          surchargeAmountDisabled={amountsViewModel.isSurchargeAmountTextFieldDisabled}
+          surchargeAmountOnChange={handleOnChangeSurchargeAmount}
+        />
       </div>
-      <div className='flex items-center justify-center mt-10'>
-        {
-          amountsViewModel.isCalculated
-            ? <LoadingButton
-              type='submit'
-              variant='contained'
-              loading={false}
-              disabled={!amountsViewModel.isCalculated}
-            >
-              Report
-            </LoadingButton>
-            : null
-        }
+      <div className='flex items-center justify-center mt-4'>
+        <ReportButton
+          isCalculated={amountsViewModel.isCalculated}
+          loading={amountsViewModel.isReportButtonLoading}
+          disabled={amountsViewModel.isReportButtonDisabled}
+          onClick={amountsViewModel.reportSurcharge}
+        />
       </div>
       <Footer />
+      <ErrorAlert isError={amountsViewModel.isError} />
+      {/* When the uploading is successed. Show dimmed cover */}
+      <UploadSuccess
+        isUploaded={amountsViewModel.isUploaded}
+        placeName={place.displayName}
+        goBack={handleBackToPlace}
+      />
     </div>
   )
 }
