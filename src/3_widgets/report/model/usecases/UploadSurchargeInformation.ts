@@ -1,27 +1,9 @@
+import { PlaceModel } from '@entities/place'
 import { postSurchargeInformation } from '../../api/postSurchargeInformation'
 import { makeImageToBase64 } from './MakeImageToBase64'
 
-type Location = {
-  latitude: number,
-  longitude: number
-}
-
-type addressComponents = {
-  longText: string,
-  shortText: string,
-  types: string[],
-  languageCode: string
-}
-
-type Place = {
-  id: string,
-  name: string,
-  address: addressComponents[],
-  location: Location
-}
-
 export type UploadSurchargeInformationRequest = {
-  place: Place,
+  place: PlaceModel,
   image: File | undefined,
   totalAmount: number,
   surchargeAmount: number
@@ -29,13 +11,23 @@ export type UploadSurchargeInformationRequest = {
 
 export async function UploadSurchargeInformation(request: UploadSurchargeInformationRequest) {
 
-  const encodedImage = await makeImageToBase64(request.image)  
+  const encodedImage = await makeImageToBase64(request.image)
 
   await postSurchargeInformation({
     place: {
       id: request.place.id,
-      name: request.place.name,
-      address: request.place.address,
+      displayName: {
+        languageCode: request.place.displayName.languageCode,
+        text: request.place.displayName.text
+      },
+      addressComponents: request.place.addressComponents.map((component) => {
+        return {
+          longText: component.longText,
+          shortText: component.shortText,
+          types: component.types,
+          languageCode: component.languageCode
+        }
+      }),
       location: {
         latitude: request.place.location.latitude,
         longitude: request.place.location.longitude
@@ -45,5 +37,5 @@ export async function UploadSurchargeInformation(request: UploadSurchargeInforma
     totalAmount: request.totalAmount,
     surchargeAmount: request.surchargeAmount
   })
-  
+
 }

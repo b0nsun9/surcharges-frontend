@@ -12,8 +12,8 @@ export async function postSurchargeInformation(request: PostSurchargeInformation
     body: JSON.stringify({
       place: {
         id: request.place.id,
-        name: request.place.name,
-        address: request.place.address.map((component) => {
+        displayName: request.place.displayName,
+        addressComponents: request.place.addressComponents.map((component) => {
           return {
             longText: component.longText,
             shortText: component.shortText,
@@ -22,8 +22,8 @@ export async function postSurchargeInformation(request: PostSurchargeInformation
           }
         }),
         location: {
-          latitude: request.place.location.latitude,
-          longitude: request.place.location.longitude
+          latitude: request.place.location?.latitude ?? 0,
+          longitude: request.place.location?.longitude ?? 0
         }
       },
       image: request.image,
