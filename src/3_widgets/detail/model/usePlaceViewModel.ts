@@ -7,7 +7,6 @@ import { PlaceModel } from "@entities/place"
 import { PlaceUI } from "@entities/place"
 import { SurchargeModel } from "@entities/surcharges"
 import { SurchargesStatus } from "@entities/surcharges"
-import { Timestamp } from "firebase/firestore"
 
 export const usePlaceViewModel = (placeId: string) => {
   const { data: useGetPlaceQueryData, isFetching } = useGetPlaceQuery(placeId)

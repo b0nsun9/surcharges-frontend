@@ -6,6 +6,7 @@ import { Unknown } from "./status/Unknown"
 import { ReportedDate } from "./dates/ReportedDate"
 import { SurchargeRate } from "./rates/SurchargeRate"
 import { ReportButton } from "./buttons/ReportButton"
+import { StatusHelp } from "./status/help/StatusHelp"
 
 interface SurchargesDetailProps {
   surchargeModel: SurchargeModel
@@ -33,7 +34,7 @@ export function SurchargesDetail(props: SurchargesDetailProps) {
     if (!props.surchargeModel.rate) {
       return null
     }
-    
+
     return <SurchargeRate rate={props.surchargeModel.rate} />
   }
 
@@ -50,9 +51,12 @@ export function SurchargesDetail(props: SurchargesDetailProps) {
 
   return (
     <div>
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center gap-2'>
         <Rate />
-        <Status />
+        <div className='flex gap-0'>
+          <Status />
+          <StatusHelp />
+        </div>
       </div>
       <div className='flex flex-col items-center justify-center mt-3'>
         <ReportedDate dateInSeconds={props.surchargeModel.reportedDate} />

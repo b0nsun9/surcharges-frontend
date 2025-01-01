@@ -1,7 +1,7 @@
-import { Place } from "@entities/place/index"
+import { PlaceUI } from "@entities/place"
 
 interface PlaceItemProps {
-  place: Place
+  place: PlaceUI
   onClick: (id: string) => void
 }
 
@@ -12,7 +12,7 @@ export function PlaceItem({ place, onClick }: PlaceItemProps) {
       onClick={() => onClick(place.id)}
     >
       <div className='font-bold'>
-        <p>{place.displayName}</p>
+        <p>{place.name}</p>
       </div>
       <div className='text-center'>
         <p>{place.address}</p>

@@ -32,10 +32,10 @@ export function Results() {
       </div>
       <div>
         {
-          (viewModel.isFetching && viewModel.convertPlaces.places?.length === 0)
+          (viewModel.isFetching && viewModel.places?.length === 0)
             ? <p>Loading</p>
             : <PlacesList
-              places={viewModel.convertPlaces.places ?? []}
+              places={viewModel.places ?? []}
               selectedPlace={handleSelectedPlace}
             />
         }
