@@ -21,7 +21,7 @@ export function GoogleMap(props: GoogleMapProps) {
             defaultZoom={18}
             defaultCenter={{ lat: props.placeUI.location.latitude, lng: props.placeUI.location.longitude }}
           >
-            <AdvancedMarker position={{ lat: props.placeUI.location.latitude, lng: props.placeUI.location?.longitude }}></AdvancedMarker>
+            <AdvancedMarker position={{ lat: props.placeUI.location.latitude, lng: props.placeUI.location?.longitude }} />
           </Map>
         </APIProvider>
       </div>

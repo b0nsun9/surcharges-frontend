@@ -1,6 +1,5 @@
+import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps"
-
 import { usePlaceViewModel } from "../model/usePlaceViewModel"
 import { SurchargesDetail } from "./components/surchargeInformation/SurchargesDetail"
 import { Footer } from "@shared/ui"
