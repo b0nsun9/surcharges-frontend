@@ -1,0 +1,17 @@
+name-template: '$NEXT_PATCH_VERSION'
+tag-template: '$NEXT_PATCH_VERSION'
+categories:
+  - title: '🚀 Features'
+    label: 'feature'
+  - title: '🐛 Fixes'
+    label: 'bug'
+  - title: '🔥 Hotfixes'
+    label: 'hotfix'
+  - title: '🍿 ETC'
+    label: 'etc'
+change-template: '- $TITLE #$NUMBER @$AUTHOR '
+template: |
+  ## Uncategorized (Please update its label🙏🏻)
+
+  ## What's Changed
+  $CHANGES
