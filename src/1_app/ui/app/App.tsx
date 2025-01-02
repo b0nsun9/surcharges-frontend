@@ -16,8 +16,8 @@ export function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />} />
-              <Route path="/:text" element={<Results />} />
-              <Route path="/place/:id" element={<Detail />} />
+              <Route path="/search" element={<Results />} />
+              <Route path="/place" element={<Detail />} />
               <Route path="/report" element={<Report />} />
             </Routes>
           </BrowserRouter>
