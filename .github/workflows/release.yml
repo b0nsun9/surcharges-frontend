@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: Archive Production Artifact
-        uses: action/upload-artifact@master
+        uses: actions/upload-artifact@master
         with: 
           name: dist
           path: dist
