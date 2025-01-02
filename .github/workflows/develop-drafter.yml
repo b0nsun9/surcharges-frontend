@@ -10,3 +10,5 @@ jobs:
       - uses: release-drafter/release-drafter@v6
         with:
           config-name: develop-drafter-config.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
