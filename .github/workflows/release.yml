@@ -1,0 +1,102 @@
+name: Release
+
+on:
+  release:
+    types: released
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # - name: Notification for Build Start
+      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Set up App Version
+        run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+        
+      - name: Generate .env.production
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
+          echo "VITE_GOOGLE_MAPS_JAVASCRIPT_API_KEY=${{ secrets.VITE_GOOGLE_MAPS_JAVASCRIPT_API_KEY }}" >> .env.production
+          echo "VITE_GOOGLE_MAPS_MAP_ID=${{ secrets.VITE_GOOGLE_MAPS_MAP_ID }}" >> .env.production
+          echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" >> .env.production
+          echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> .env.production
+          echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> .env.production
+          echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> .env.production
+          echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}" >> .env.production
+          echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> .env.production
+          echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}" >> .env.production
+          echo "VITE_RECAPTCHA_SITE_KEY=${{ secrets.VITE_RECAPTCHA_SITE_KEY }}" >> .env.production
+
+      - name: Build
+        run: npm run build
+
+      - name: Archive Production Artifact
+        uses: action/upload-artifact@master
+        with: 
+          name: dist
+          path: dist
+      
+      # - name: Notification for Build Success
+      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # - name: Notification for Deploy Start
+      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+          path: dist
+
+      - name: Deploy to Firebase Hosting
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting --message \"${{ github.event.release.body }}\"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      # - name: Notification for Deploy Success
+      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
+
+      # - name: Set Tag Name
+      #   run: sh ../../scripts/release/shopl/SetTagName.sh
+
+      # - name: Parsing Message
+      #   env:
+      #     RELEASE_MESSAGE: ${{ github.event.release.body }}
+      #   run: sh ../../scripts/release/shopl/ParsingMessage.sh
+
+      # - name: Parsing Versions
+      #   run: sh ../../scripts/release/shopl/ParsingVersion.sh
+
+      # - name: Set App version
+      #   run: sh ../../scripts/release/shopl/SetVersion.sh
+
+      # - name: Build
+      #   run: sh ../../scripts/release/shopl/Build.sh
+
+      # - name: Export to IPA
+      #   run: sh ../../scripts/release/shopl/Export.sh
+
+      # - name: Distribute to AppStore Connect
+      #   run: sh ../../scripts/release/shopl/Distribute.sh
+
+      # - name: Notificate to Slack
+      #   run: sh ../../scripts/release/shopl/SlackMessage.sh
