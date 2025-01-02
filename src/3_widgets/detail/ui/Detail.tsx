@@ -1,4 +1,4 @@
-import { useNavigate, useParams, useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { usePlaceViewModel } from "../model/usePlaceViewModel"
 import { SurchargesDetail } from "./components/surchargeInformation/SurchargesDetail"
 import { Footer } from "@shared/ui"
