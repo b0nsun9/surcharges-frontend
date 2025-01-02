@@ -1,0 +1,12 @@
+name: Develop Drafter
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  update_release_draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v6
+        with:
+          config-name: develop-drafter-config.yml
