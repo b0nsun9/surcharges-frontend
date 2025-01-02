@@ -8,6 +8,9 @@ export function Footer() {
         <p>Made with ❤️ in Wellington</p>
         <Bonsung />
         <Petr />
+        <div className='mt-10'>
+          <p>v{__APP_VERSION__}({__GIT_COMMIT_HASH__})</p>
+        </div>
       </footer>
     </div>
   )
