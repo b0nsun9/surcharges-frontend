@@ -11,7 +11,7 @@ categories:
     label: 'etc'
 change-template: '- $TITLE #$NUMBER @$AUTHOR '
 template: |
-  ## Uncategorized (Please update its label🙏🏻)
+  ## Uncategorised (Please update its label🙏🏻)
 
-  ## What's Changed
+  # What's Changed
   $CHANGES
