@@ -51,7 +51,10 @@ export function Report() {
   const navigate = useNavigate()
 
   const handleBackToPlace = () => {
-    navigate(`/place/${place.id}`, { replace: true })
+    navigate('/place', {
+      state: { id: place.id },
+      replace: true
+    })
   }
 
   return (

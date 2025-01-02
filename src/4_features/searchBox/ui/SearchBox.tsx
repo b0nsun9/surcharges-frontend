@@ -20,7 +20,10 @@ export function SearchBox({ text, replace }: SearchBoxProps) {
 
   const handleOnSubmit = () => {
     if (searchText) {
-      navigate(`/${searchText}`, { replace: replace })
+      navigate('/search', {
+        state: { searchText: searchText },
+        replace: replace
+      })
     }
   }
 

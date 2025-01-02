@@ -1,13 +1,21 @@
-import { useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { usePlaceViewModel } from "../model/usePlaceViewModel"
 import { SurchargesDetail } from "./components/surchargeInformation/SurchargesDetail"
 import { Footer } from "@shared/ui"
+import { WrongAccess } from "@shared/ui"
 import { GoogleMap } from "./components/map/GoogleMap"
 
 export function Detail() {
 
-  const { id } = useParams() as { id: string }
+  const location = useLocation().state
+
+  if (!location) {
+    return (
+      <WrongAccess />
+    )
+  }
+
+  const { id } = location as { id: string }
 
   const viewModel = usePlaceViewModel(id)
 
