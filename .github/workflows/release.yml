@@ -72,7 +72,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting --message \"${{ github.event.release.body }}\"
+          args: deploy --only hosting --message \"${{ github.event.release.tag_name }}\"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
