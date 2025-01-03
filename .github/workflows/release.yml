@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Set up App Version
-        run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+        run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version --allow-same-version
         
       - name: Generate .env.production
         run: |
