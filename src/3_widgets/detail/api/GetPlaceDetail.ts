@@ -1,5 +1,5 @@
-import { PlaceDTO } from '@entities/place/index'
-import { AddressComponentsDTO } from '@entities/place/index'
+import { PlaceDTO } from '@entities/place'
+import { AddressComponentsDTO } from '@entities/place'
 import { Timestamp } from 'firebase/firestore'
 
 export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {

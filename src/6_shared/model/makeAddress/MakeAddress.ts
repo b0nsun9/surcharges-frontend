@@ -1,4 +1,4 @@
-import { AddressComponentsDTO } from "@entities/place/index"
+import { AddressComponentsDTO } from "@entities/place"
 
 export function MakeAddress(addressComponents: AddressComponentsDTO[]) {
   return addressComponents
