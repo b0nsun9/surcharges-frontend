@@ -13,8 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      # - name: Notification for Build Start
-      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -48,9 +46,15 @@ jobs:
         with: 
           name: dist
           path: dist
-      
-      # - name: Notification for Build Success
-      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
+
+      - name: Notify Build End
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with: 
+          status: ${{ job.status }}
+          fields: repo,author,ref,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   deploy:
     name: Deploy
@@ -59,9 +63,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-
-      # - name: Notification for Deploy Start
-      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
 
       - name: Download Artifact
         uses: actions/download-artifact@master
@@ -75,32 +76,12 @@ jobs:
           args: deploy --only hosting --message \"${{ github.event.release.tag_name }}\"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
-      # - name: Notification for Deploy Success
-      #   run: sh ../../scripts/release/shopl/BuildStartMessage.sh
-
-      # - name: Set Tag Name
-      #   run: sh ../../scripts/release/shopl/SetTagName.sh
-
-      # - name: Parsing Message
-      #   env:
-      #     RELEASE_MESSAGE: ${{ github.event.release.body }}
-      #   run: sh ../../scripts/release/shopl/ParsingMessage.sh
-
-      # - name: Parsing Versions
-      #   run: sh ../../scripts/release/shopl/ParsingVersion.sh
-
-      # - name: Set App version
-      #   run: sh ../../scripts/release/shopl/SetVersion.sh
-
-      # - name: Build
-      #   run: sh ../../scripts/release/shopl/Build.sh
-
-      # - name: Export to IPA
-      #   run: sh ../../scripts/release/shopl/Export.sh
-
-      # - name: Distribute to AppStore Connect
-      #   run: sh ../../scripts/release/shopl/Distribute.sh
-
-      # - name: Notificate to Slack
-      #   run: sh ../../scripts/release/shopl/SlackMessage.sh
+      
+      - name: Notify Deployment End
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with: 
+          status: ${{ job.status }}
+          fields: repo,author,ref,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
