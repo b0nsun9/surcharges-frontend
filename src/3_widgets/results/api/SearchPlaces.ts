@@ -1,5 +1,5 @@
-import { PlaceDTO } from '@entities/place/index'
-import { AddressComponentsDTO } from '@entities/place/index'
+import { PlaceDTO } from '@entities/place'
+import { AddressComponentsDTO } from '@entities/place'
 
 export async function SearchPlaces(searchText: string, nextPageToken?: string): Promise<{ places: PlaceDTO[], nextPageToken?: string }> {
 
