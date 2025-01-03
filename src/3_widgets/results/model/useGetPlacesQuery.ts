@@ -6,6 +6,7 @@ export const useGetPlacesQuery = (searchText: string, nextPageToken?: string) =>
     queryKey: ['places', searchText],
     retry: false,
     queryFn: () => SearchPlaces(searchText, nextPageToken),
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   })
 }
