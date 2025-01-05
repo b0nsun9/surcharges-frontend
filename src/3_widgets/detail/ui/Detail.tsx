@@ -38,7 +38,7 @@ export function Detail() {
         </div>
         <div className='flex flex-col items-center justify-center mt-10'>
           <SurchargesDetail
-            surchargeModel={viewModel.surchargeModel}
+            surchargesUI={viewModel.surchargesUI}
             onClickToReport={onClickToReport}
           />
         </div>
