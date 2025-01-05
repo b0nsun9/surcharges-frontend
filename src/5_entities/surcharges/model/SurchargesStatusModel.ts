@@ -1,4 +1,4 @@
-export enum SurchargesStatus {
+export enum SurchargesStatusModel {
   Confirmed,
   Reported,
   Unknown,

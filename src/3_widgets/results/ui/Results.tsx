@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { SearchBox } from '@features/searchBox'
-import { Footer } from '@shared/ui'
+import { Footer, StatusHelp } from '@shared/ui'
 import { WrongAccess } from '@shared/ui'
+import { Confirmed, Reported } from '@shared/ui'
 
 import { usePlaceListViewModel } from '../model/usePlaceListViewModel'
 import PlacesList from './placelist/PlaceList'
@@ -38,6 +39,11 @@ export function Results() {
         <div className='lg:w-1/4 w-4/5 lg:mt-0 mt-10'>
           <SearchBox text={searchText} replace={true} />
         </div>
+      </div>
+      <div className='flex justify-center gap-2 mt-5'>
+        <Confirmed />
+        <Reported />
+        <StatusHelp includingUnknown={false} />
       </div>
       <div>
         {

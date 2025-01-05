@@ -1,5 +1,6 @@
 import { PlaceDTO } from '@entities/place'
 import { AddressComponentsDTO } from '@entities/place'
+import { SurchargesStatusDTO } from '@entities/surcharges'
 
 export async function SearchPlaces(searchText: string, nextPageToken?: string): Promise<{ places: PlaceDTO[], nextPageToken?: string }> {
 
@@ -34,7 +35,9 @@ export async function SearchPlaces(searchText: string, nextPageToken?: string): 
             types: component.types
           }
         }),
-        location: null
+        status: place.status ?? SurchargesStatusDTO.Unknown,
+        rate: place.rate,
+        reportedDate: place.reportedDate
       }
     }),
     nextPageToken: data.nextPageToken

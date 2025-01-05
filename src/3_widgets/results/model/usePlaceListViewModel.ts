@@ -1,6 +1,8 @@
 import { useMemo } from "react"
 
 import { PlaceDTO, PlaceUI } from "@entities/place"
+import { SurchargesStatusDTO } from "@entities/surcharges"
+import { SurchargesStatusUI } from "@entities/surcharges"
 
 import { useGetPlacesQuery } from "./useGetPlacesQuery"
 
@@ -10,7 +12,20 @@ export const usePlaceListViewModel = (searchText: string, nextPageToken?: string
   const { data: useGetPlacesQueryData, isFetching } = useGetPlacesQuery(searchText, nextPageToken)
 
   const places = useMemo((): PlaceUI[] => {
+
     return useGetPlacesQueryData?.places.map((place: PlaceDTO): PlaceUI => {
+
+      const status = () => {
+        switch (place.status) {
+          case SurchargesStatusDTO.Confirmed:
+            return SurchargesStatusUI.Confirmed
+          case SurchargesStatusDTO.Reported:
+            return SurchargesStatusUI.Reported
+          case SurchargesStatusDTO.Unknown:
+            return SurchargesStatusUI.Unknown
+        }
+      }
+
       return {
         id: place.id,
         name: place.displayName.text,
@@ -18,6 +33,11 @@ export const usePlaceListViewModel = (searchText: string, nextPageToken?: string
         location: {
           latitude: place.location?.latitude ?? 0,
           longitude: place.location?.longitude ?? 0
+        },
+        surcharges: {
+          status: status(),
+          rate: place.rate,
+          reportedDate: place.reportedDate?.seconds
         }
       }
     }) ?? []

@@ -1,15 +1,11 @@
-import { SurchargesStatus } from "@entities/surcharges"
-import { SurchargeModel } from "@entities/surcharges/model/SurchargeModel"
-import { Confirmed } from "./status/Confirmed"
-import { Reported } from "./status/Reported"
-import { Unknown } from "./status/Unknown"
+import { SurchargesUI, SurchargesStatusUI } from "@entities/surcharges"
+import { Confirmed, Reported, Unknown, StatusHelp } from '@shared/ui'
 import { ReportedDate } from "./dates/ReportedDate"
 import { SurchargeRate } from "./rates/SurchargeRate"
 import { ReportButton } from "./buttons/ReportButton"
-import { StatusHelp } from "./status/help/StatusHelp"
 
 interface SurchargesDetailProps {
-  surchargeModel: SurchargeModel
+  surchargesUI: SurchargesUI
   onClickToReport: () => void
 }
 
@@ -20,31 +16,31 @@ export function SurchargesDetail(props: SurchargesDetailProps) {
   }
 
   function Status() {
-    switch (props.surchargeModel.status) {
-      case SurchargesStatus.Confirmed:
+    switch (props.surchargesUI.status) {
+      case SurchargesStatusUI.Confirmed:
         return <Confirmed />
-      case SurchargesStatus.Reported:
+      case SurchargesStatusUI.Reported:
         return <Reported />
-      case SurchargesStatus.Unknown:
+      case SurchargesStatusUI.Unknown:
         return <Unknown />
     }
   }
 
   function Rate() {
-    if (!props.surchargeModel.rate) {
+    if (!props.surchargesUI.rate) {
       return null
     }
 
-    return <SurchargeRate rate={props.surchargeModel.rate} />
+    return <SurchargeRate rate={props.surchargesUI.rate} />
   }
 
   function Report() {
-    switch (props.surchargeModel.status) {
-      case SurchargesStatus.Confirmed:
+    switch (props.surchargesUI.status) {
+      case SurchargesStatusUI.Confirmed:
         return <ReportButton message='Something wrong?' onClickToReport={onClickToReport} />
-      case SurchargesStatus.Reported:
+      case SurchargesStatusUI.Reported:
         return null
-      case SurchargesStatus.Unknown:
+      case SurchargesStatusUI.Unknown:
         return <ReportButton message='Be a first contributer!' onClickToReport={onClickToReport} />
     }
   }
@@ -55,11 +51,11 @@ export function SurchargesDetail(props: SurchargesDetailProps) {
         <Rate />
         <div className='flex gap-0'>
           <Status />
-          <StatusHelp />
+          <StatusHelp includingUnknown/>
         </div>
       </div>
       <div className='flex flex-col items-center justify-center mt-3'>
-        <ReportedDate dateInSeconds={props.surchargeModel.reportedDate} />
+        <ReportedDate dateInSeconds={props.surchargesUI.reportedDate} />
         <Report />
       </div>
     </div>

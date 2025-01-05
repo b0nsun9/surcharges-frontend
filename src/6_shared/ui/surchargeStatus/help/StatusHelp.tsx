@@ -6,7 +6,11 @@ import { Reported } from "../Reported"
 import { Unknown } from "../Unknown"
 import HelpIcon from '@mui/icons-material/Help'
 
-export function StatusHelp() {
+interface StatusHelpProps {
+  includingUnknown: boolean
+}
+
+export function StatusHelp(props: StatusHelpProps) {
 
   const isMobile = useMediaQuery('(max-width: 600px)')
 
@@ -31,16 +35,20 @@ export function StatusHelp() {
           <div className='flex flex-col gap-4'>
             <div className='flex items-center gap-2'>
               <Confirmed />
-              <p>The surcharge rate is confirmed by administrator</p>
+              <p>The surcharge rate is confirmed by administrator.</p>
             </div>
             <div className='flex items-center gap-2'>
               <Reported />
-              <p>The surcharge rate is reported by someone but not confirmed, It may not be accurate</p>
+              <p>The surcharge rate is reported by someone but not confirmed, It may not be accurate.</p>
             </div>
-            <div className='flex items-center gap-2'>
-              <Unknown />
-              <p>The surcharge rate is unknown</p>
-            </div>
+            {
+              props.includingUnknown && (
+                <div className='flex items-center gap-2'>
+                  <Unknown />
+                  <p>The surcharge rate is unknown.</p>
+                </div>
+              )
+            }
           </div>
         </div>
       }
