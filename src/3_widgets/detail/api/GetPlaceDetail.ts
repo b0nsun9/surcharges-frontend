@@ -1,8 +1,8 @@
-import { PlaceDTO } from '@entities/place'
+import { GetPlaceDetailResponse } from './DTO/GetPlaceDetailResponse'
 import { AddressComponentsDTO } from '@entities/place'
 import { Timestamp } from 'firebase/firestore'
 
-export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
+export async function GetPlaceDetail(id: string): Promise<GetPlaceDetailResponse> {
 
   const baseURL = import.meta.env.VITE_BASE_URL
 
@@ -43,6 +43,7 @@ export async function GetPlaceDetail(id: string): Promise<PlaceDTO> {
       latitude: data.location.latitude,
       longitude: data.location.longitude
     },
+    status: data.surchargeStatus,
     rate: data.rate,
     reportedDate: reportedDate()
   }

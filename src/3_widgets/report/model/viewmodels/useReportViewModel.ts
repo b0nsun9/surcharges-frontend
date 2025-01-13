@@ -37,6 +37,7 @@ export const useReportViewModel = (initialPlaceModel: PlaceModel) => {
   const setIsError = useUploadStore((state) => state.setIsError)
 
   const placeUI = useMemo((): PlaceUI => {
+
     return {
       id: _placeModel.id,
       name: _placeModel.displayName.text,
@@ -109,7 +110,7 @@ export const useReportViewModel = (initialPlaceModel: PlaceModel) => {
       )
 
       _setIsUploaded(true)
-      
+
     } catch {
 
       setIsError(true)
@@ -117,7 +118,7 @@ export const useReportViewModel = (initialPlaceModel: PlaceModel) => {
       setTimeout(() => {
         setIsError(false)
       }, 3000);
-      
+
     } finally {
       _setIsUploading(false)
     }
